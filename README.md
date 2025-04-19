@@ -3,6 +3,10 @@
 A sleek, stealthy recon tool for Red Teamers to log target IPs, user agents, timezones, and more, without showing them anything suspicious.  
 Can bypass NAT using **Cloudflared tunnels** for public access.
 
+## 📸 Screenshot
+
+![Screenshot](assets/screenshot.png)
+
 ---
 
 ### 🔥 Features
