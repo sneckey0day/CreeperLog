@@ -19,7 +19,7 @@ Can bypass NAT using **Cloudflared tunnels** for public access.
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/ip-logger
+git clone https://github.com/sneckey0day/ip-logger
 cd ip-logger
 
 # Install requirements
