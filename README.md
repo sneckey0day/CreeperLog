@@ -1,54 +1,111 @@
-# Red-Team-IP-Leak-Project
+## ⚡ IP Recon Logger — Stealth IP Capture Tool
 
-## Description
-This project demonstrates how to identify and leak the real IP address of a user visiting a website, even if they are using a browser-based VPN. It uses WebRTC for IP leaks and Cloudflare Tunnel for bypassing VPN IPs.
+A sleek, stealthy recon tool for Red Teamers to log target IPs, user agents, timezones, and more, without showing them anything suspicious.  
+Can bypass NAT using **Cloudflared tunnels** for public access.
 
-## Features
-- **WebRTC Real IP Leak**: Captures the real IP of the user through WebRTC.
-- **VPN IP Detection**: Logs the VPN IP address (via Cloudflare headers).
-- **Cloudflare Tunnel Integration**: Allows you to easily tunnel a local server to a public URL for testing.
+---
 
-## Setup
+### 🔥 Features
+- Captures **WebRTC** and **Public IP (IPify)**
+- Logs **User-Agent**, **Language**, and **Timezone**
+- Backend logs are **hidden from the user**
+- Clean **terminal output in table format**
+- Supports **Cloudflared** tunneling for WAN access
+- Saves everything in `logs.txt`
 
-### Prerequisites
-- Python 3.x
-- Cloudflare Tunnel (`cloudflared`)
-- Flask (`pip install flask`)
+---
 
-### Running Locally
+### 📦 Installation
 
-1. Clone this repository:
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/ip-logger
+cd ip-logger
 
-    ```bash
-    git clone https://github.com/your-username/Red-Team-IP-Leak-Project.git
-    ```
+# Install requirements
+pip install flask
+```
 
-2. Install dependencies:
+---
 
-    ```bash
-    pip install flask
-    ```
+### 🚀 Running the Tool
 
-3. Run the Flask app:
+```bash
+# Start the Flask server
+python3 logger.py
+```
 
-    ```bash
-    python logger.py
-    ```
+The server will be available on:
+```
+http://localhost:8080
+```
 
-4. Tunnel the app with Cloudflare:
+---
 
-    ```bash
-    cloudflared tunnel --url http://localhost:8080
-    ```
+### 🌐 Make It Public with Cloudflared
 
-5. Visit the Cloudflare URL (provided by `cloudflared`), and your IP will be logged.
+Cloudflared creates a public tunnel to localhost — perfect for Red Team stealth drops.
 
-### Log Data
-- All logged data will be saved in `logs.txt`.
-- Logs contain the real IP, VPN IP, and user details (e.g., browser, timezone).
+#### 📥 Install Cloudflared:
 
-## Contributions
-Feel free to fork and improve the project! Any contributions are welcome.
+```bash
+# Debian/Ubuntu
+sudo apt install cloudflared
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+# OR download manually
+wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+sudo dpkg -i cloudflared-linux-amd64.deb
+```
+
+#### 🚇 Run Cloudflared Tunnel
+
+```bash
+cloudflared tunnel --url http://localhost:8080
+```
+
+#### ⚙️ Optional Flags
+
+| Flag                      | Description                                 |
+|---------------------------|---------------------------------------------|
+| `--url`                   | Local server to expose                      |
+| `--no-autoupdate`         | Prevent Cloudflared from auto-updating     |
+| `--loglevel info/warn`    | Control verbosity of tunnel output         |
+| `--metrics 0.0.0.0:XXX`   | Expose metrics endpoint                     |
+
+Example with extras:
+
+```bash
+cloudflared tunnel --url http://localhost:8080 --no-autoupdate --loglevel info
+```
+
+---
+
+### 📁 File Structure
+
+```
+.
+├── index.html      # Frontend IP collection (stealth mode)
+├── logger.py       # Backend Flask server (logs and prints)
+├── logs.txt        # Output logs
+├── README.md       # This doc
+```
+
+---
+
+### 📋 Sample Terminal Log Output
+
+```
+========================================
+               LOGGED DATA               
+========================================
+Source              | IP              | User-Agent                    | Timezone        
+----------------------------------------
+WebRTC              | 192.168.1.2     | Mozilla/5.0 (Windows NT 10.0) | Asia/Kolkata
+========================================
+```
+
+---
+
+### ⚠️ Disclaimer
+
+This tool is intended **strictly for educational and authorized testing purposes**. Use responsibly in environments you have **explicit permission** to test.
