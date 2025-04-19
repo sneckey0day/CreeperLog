@@ -10,7 +10,7 @@ Can bypass NAT using **Cloudflared tunnels** for public access.
 ---
 
 ### 🔥 Features
-- Captures **WebRTC** and **Public IP (IPify)**
+- Captures **WebRTC**
 - Logs **User-Agent**, **Language**, and **Timezone**
 - Backend logs are **hidden from the user**
 - Clean **terminal output in table format**
