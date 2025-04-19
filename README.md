@@ -19,11 +19,12 @@ Can bypass NAT using **Cloudflared tunnels** for public access.
 
 ```bash
 # Clone the repo
-git clone https://github.com/sneckey0day/ip-logger
-cd ip-logger
+git clone https://github.com/sneckey0day/Red-Team-IP-Leak-Project
+cd Red-Team-IP-Leak-Project
 
 # Install requirements
 pip install flask
+pip install prettytable
 ```
 
 ---
