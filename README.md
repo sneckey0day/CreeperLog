@@ -1,7 +1,6 @@
 ## ⚡ IP Recon Logger — Stealth IP Capture Tool
 
-A sleek, stealthy recon tool for Red Teamers to log target IPs, user agents, timezones, and more, without showing them anything suspicious.  
-Can bypass NAT using **Cloudflared tunnels** for public access.
+A stealth browser-based recon tool that silently captures real IP addresses, even when a VPN is in use, using WebRTC leaks and fallback techniques. It also logs User-Agent, timezone, language, and more — while showing a decoy page to the target. Perfect for Red Team recon and footprinting.
 
 ## 📸 Screenshot
 
