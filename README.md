@@ -2,6 +2,8 @@
 
 A stealth browser-based recon tool that silently captures real IP addresses, even when a VPN is in use, using WebRTC leaks and fallback techniques. It also logs User-Agent, timezone, language, and more — while showing a decoy page to the target. Perfect for Red Team recon and footprinting.
 
+📘 [Read the technical background here](Background.md)
+
 ## 📸 Screenshot
 
 ![Screenshot](assets/screenshot.png)
