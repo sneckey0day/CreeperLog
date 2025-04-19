@@ -19,8 +19,8 @@ Can bypass NAT using **Cloudflared tunnels** for public access.
 
 ```bash
 # Clone the repo
-git clone https://github.com/sneckey0day/Red-Team-IP-Leak-Project
-cd Red-Team-IP-Leak-Project
+git clone https://github.com/sneckey0day/CreeperLog
+cd CreeperLog
 
 # Install requirements
 pip install flask
